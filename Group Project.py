@@ -1,9 +1,12 @@
-# Developed my Oliver M
+# Developed buy Oliver M
+# Edited by Dawid S
 from tkinter import *
 from tkinter import ttk
 
 window = Tk()
-window.title('Tab Bar')
+window.geometry("300x100")
+window.resizable(width = False, height = False)
+window.title('Theory Of Woe')
 NB = ttk.Notebook(window)
 T1 = ttk.Frame(NB)
 T2 = ttk.Frame(NB)
