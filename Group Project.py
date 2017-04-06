@@ -1,5 +1,5 @@
-# Developed buy Oliver M
-# Edited by Dawid S
+# Developed By Oliver M
+# Edited By Dawid S
 from tkinter import *
 from tkinter import ttk
 
@@ -24,38 +24,10 @@ ANDVar1 = IntVar(value = 0)
 ANDVar2 = IntVar(value = 0)
 ANDVar3 = IntVar(value = 0)
 ANDVar4 = IntVar(value = 0)
+ANDVar5 = IntVar(value = 0)
+ANDVar6 = IntVar(value = 0)
 
 Photo = PhotoImage(file = 'AND.gif')
-
-def AND(window):
-    CheckVar5 = IntVar(value = 0)
-    CheckVar6 = IntVar(value = 0)
-    L1.destroy()
-    L2.destroy()
-    L3.destroy()
-    L4.destroy()
-    L5.destroy()
-    L6.destroy()
-    L7.destroy()
-    L8.destroy()
-    R1.destroy()
-    R2.destroy()
-    R3.destroy()
-    R4.destroy()
-    B1.destroy()
-    Q1 = ttk.Checkbutton(T1, variable = CheckVar5)
-    Q2 = ttk.Checkbutton(T1, variable = CheckVar6)
-    S1 = ttk.Label(T1)
-    Q1.grid(column = 1, row = 1, rowspan = 2)
-    Q2.grid(column = 1, row = 3, rowspan = 2)
-    S1.grid(column = 5, row = 1, rowspan = 4)
-    window.update()
-    while True:
-        if CheckVar5.get() == 1 and CheckVar6.get() == 1:
-            S1.configure(text = '1')
-        else:
-            S1.configure(text = '0')
-        window.update()
 
 L1 = ttk.Label(T1, text = '1')
 L1.grid(row = 1, column = 1, padx = 10)
@@ -81,10 +53,17 @@ L8 = ttk.Label(T1, text = '1')
 L8.grid(row = 4, column = 2, padx = 10)
 R4 = ttk.Checkbutton(T1, variable = ANDVar4)
 R4.grid(row = 4, column = 3)
-B1 = ttk.Button(T1, text = 'Submit', command = lambda: AND(window))
+B1 = ttk.Button(T1, text = 'Submit')
 B1.grid(row = 1, column = 5, rowspan = 4)
 P1 = Label(T1, image = Photo)
-P1.grid(row = 1, column = 4, rowspan = 4)
+P1.grid(row = 5, column = 2, rowspan = 4, columnspan = 4)
+R5 = ttk.Checkbutton(T1, variable = ANDVar5)
+R5.grid(row = 5, column = 1, rowspan = 2)
+R6 = ttk.Checkbutton(T1, variable = ANDVar6)
+R6.grid(row = 7, column = 1, rowspan = 2)
+L9 = ttk.Label(T1, text = '0')
+L9.grid(row = 5, column = 7, rowspan = 4)
+
 # AND TAB
 
 NB.add(T1, text = 'AND')
@@ -95,5 +74,12 @@ NB.add(T5, text = 'OR')
 NB.add(T6, text = 'XNOR')
 NB.add(T7, text = 'XOR')
 NB.pack(fill = BOTH)
+
+while True:
+        if ANDVar5.get() == 1 and ANDVar6.get() == 1:
+            L9.configure(text = '1')
+        else:
+            L9.configure(text = '0')
+        window.update()
 
 window.mainloop()
