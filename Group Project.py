@@ -56,10 +56,10 @@ def Tab3(window, x):
         window.update()
                         
 def Tab4(window, x):
-        if Var1.get() == 1 and Var2.get() == 1:
-                Labels[x].configure(text = '1')
-        else:
+        if Var1.get() == 1:
                 Labels[x].configure(text = '0')
+        else:
+                Labels[x].configure(text = '1')
         window.update()
                         
 def Tab5(window, x):
@@ -125,6 +125,15 @@ def CreateGUI(Count):
                 R4.grid(row = 2, column = 2)
                 R5.grid(row = 3, column = 2)
                 R6.grid(row = 4, column = 2)
+                if i == 3:
+                        L2.configure(text = '1  |')
+                        L3.configure(text = '0  |')
+                        L4.destroy()
+                        L5.destroy()
+                        R2.destroy()
+                        R5.destroy()
+                        R6.destroy()
+                        R1.grid(rowspan = 4)
                 
         NB.pack(fill = BOTH)
         while True:
