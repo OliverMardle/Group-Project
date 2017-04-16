@@ -8,6 +8,7 @@ window.resizable(width=False, height=False)
 window.title('Logic Of Woe')
 
 Count = 7
+Score = 0
 Tabs = ['AND','NAND','NOR','NOT','OR','XNOR','XOR']
 Images = ['AND.gif','NAND.gif','NOR.gif','NOT.gif','OR.gif','XNOR.gif','XOR.gif']
 Labels = []
@@ -16,6 +17,7 @@ Names = []
 F1 = Frame(window)
 F1.pack(fill = BOTH)
 NB = ttk.Notebook(F1)
+S1 = ttk.Label(F1, text = 'Score: ' + str(Score))
 
 Var1 = IntVar(value = 0)
 Var2 = IntVar(value = 0)
@@ -25,14 +27,42 @@ Var5 = IntVar(value = 0)
 Var6 = IntVar(value = 0)
 
 Variables = [Var1, Var2, Var3, Var4, Var5, Var6]
+Variables2 = [Var3, Var4, Var5, Var6]
 
-def Check(window):
-        print(NB.index(NB.select()))
+def Close(window):
+        window.destroy()
+
+def Check(window, F8):
+        global Score
+        Tab = NB.index(NB.select())
+        File = open(str(Tab) + '.txt', 'r')
+        Text = File.readlines()
+        Answers = []
+        for line in Text:
+                line = line.strip('\n')
+                Answers.append(line)
+        for i in range(0, len(Answers)):
+                if int(Answers[i]) == Variables2[i].get():
+                        Score += 1
+                elif int(Answers[i]) != Variables2[i].get():
+                        Score += 0
+                S1.configure(text = 'Score: ' + str(Score))
         for i in range(0, 6):
-                print(i, Variables[i].get())
                 Variables[i].set(0)
-        NB.tab(NB.index(NB.select()), state = 'disabled')
-        NB.select(Names[NB.index(NB.select())])
+        if Tab != Count - 1:
+                NB.tab(NB.index(NB.select()), state = 'disabled')
+                NB.select(Names[NB.index(NB.select())])
+        else:
+                NB.tab(7, state = 'normal')
+                NB.tab(NB.index(NB.select()), state = 'disabled')
+                S2 = ttk.Label(F8, text = 'Total Score: ' + str(Score))
+                S3 = ttk.Label(F8, text = 'Percentage: '+ str((100 / 26) * Score) + '%')
+                B1 = ttk.Button(F8, text = 'Close', command = lambda: Close(window))
+                S2.pack(padx = 10, pady = 10)
+                S3.pack(padx = 10, pady = 10)
+                B1.pack(padx = 10, pady = 10)
+                NB.select(NB.index(NB.select()))
+        window.update()
 
 def Tab1(window, x):
         if Var1.get() == 1 and Var2.get() == 1:
@@ -83,7 +113,10 @@ def Tab7(window, x):
                 Labels[x].configure(text = '1')
         window.update()
 
-TabFunctions = [Tab1, Tab2, Tab3, Tab4, Tab5, Tab6, Tab7]
+def Tab8(window, x):
+        window.update()
+
+TabFunctions = [Tab1, Tab2, Tab3, Tab4, Tab5, Tab6, Tab7, Tab8]
 
 def CreateGUI(Count):
         for i in range(0, Count):
@@ -109,7 +142,7 @@ def CreateGUI(Count):
                 R4 = ttk.Checkbutton(F2, variable = Var4)
                 R5 = ttk.Checkbutton(F2, variable = Var5)
                 R6 = ttk.Checkbutton(F2, variable = Var6)
-                B1 = ttk.Button(Names[i], text = 'Submit', command = lambda: Check(window))
+                B1 = ttk.Button(Names[i], text = 'Submit', command = lambda: Check(window, F8))
 
                 R1.grid(row = 1, column = 1, rowspan = 2)
                 R2.grid(row = 3, column = 1, rowspan = 2)
@@ -134,8 +167,12 @@ def CreateGUI(Count):
                         R5.destroy()
                         R6.destroy()
                         R1.grid(rowspan = 4)
-                
+                        
+        F8 = ttk.Frame(window)
+        NB.add(F8, text = 'Score')
+        NB.tab(7, state = 'hidden')
         NB.pack(fill = BOTH)
+        S1.pack()
         while True:
                 x = NB.index(NB.select())
                 TabFunctions[x](window, x)
