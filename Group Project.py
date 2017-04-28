@@ -31,6 +31,7 @@ Variables2 = [Var3, Var4, Var5, Var6]
 
 def Close(window):
         window.destroy()
+        sys.exit()
 
 def Check(window, F8):
         global Score
@@ -50,6 +51,7 @@ def Check(window, F8):
         for i in range(0, 6):
                 Variables[i].set(0)
         if Tab != Count - 1:
+                NB.tab(NB.index(NB.select()) + 1, state = 'normal')
                 NB.tab(NB.index(NB.select()), state = 'disabled')
                 NB.select(Names[NB.index(NB.select())])
         else:
@@ -167,6 +169,8 @@ def CreateGUI(Count):
                         R5.destroy()
                         R6.destroy()
                         R1.grid(rowspan = 4)
+                if i > 0:
+                        NB.tab(i, state = 'disabled')
                         
         F8 = ttk.Frame(window)
         NB.add(F8, text = 'Score')
