@@ -1,5 +1,4 @@
-# Developed By Oliver M
-# Edited By Dawid S
+# Written by Oliver Mardle
 from tkinter import *
 from tkinter import ttk
 
